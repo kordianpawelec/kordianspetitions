@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Search Results</title>
+</head>
+<body>
+<h1>Search Results</h1>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Creator</th>
+  </tr>
+  <tr th:each="petition : ${results}">
+    <td th:text="${petition.title}"></td>
+    <td th:text="${petition.description}"></td>
+    <td th:text="${petition.creator}"></td>
+  </tr>
+</table>
+<a href="/kordianspetitions/view">Back to all petitions</a>
+</body>
+</html>

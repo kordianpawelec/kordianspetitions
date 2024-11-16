@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Petition</title>
+</head>
+<body>
+<h1>Create a New Petition</h1>
+<form action="/kordianspetitions/create" method="post">
+  <label>Title:</label><br>
+  <input type="text" name="title" required><br>
+  <label>Description:</label><br>
+  <textarea name="description" required></textarea><br>
+  <label>Creator:</label><br>
+  <input type="text" name="creator" required><br>
+  <button type="submit">Create Petition</button>
+</form>
+</body>
+</html>
