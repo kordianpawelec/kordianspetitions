@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    @GetMapping("/")
+    @GetMapping("/kordianspetitions")
     public String home() {
         return "index"; // Refers to index.html in src/main/resources/templates
     }
