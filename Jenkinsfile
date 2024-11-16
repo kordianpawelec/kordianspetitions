@@ -4,7 +4,7 @@ pipeline {
     environment {
         DEPLOY_PATH = '/usr/local/tomcat/webapps' // Path to Tomcat's webapps folder
         APP_NAME = 'kordianspetitions' // Name of the WAR file without .war extension
-        TOMCAT_LOG = '/usr/local/tomcat/logs/catalina.out' // Path to Tomcat logs
+        LOG_PATH = '/usr/local/tomcat/logs/catalina.out' // Path to Tomcat logs
     }
 
     stages {
@@ -32,15 +32,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Ensure the WAR file exists
-                    sh """
-                    if [ ! -f target/${APP_NAME}.war ]; then
-                        echo "Error: ${APP_NAME}.war not found in target directory!"
-                        exit 1
-                    fi
-                    """
-
-                    // Deploy the WAR file to Tomcat
+                    // Copy the WAR file to Tomcat's webapps directory and restart Tomcat
                     sh """
                     echo "Deploying to local Tomcat server..."
                     sudo rm -f ${DEPLOY_PATH}/${APP_NAME}.war
@@ -49,11 +41,17 @@ pipeline {
                     sudo /usr/local/tomcat/bin/startup.sh
                     echo "Deployment completed!"
                     """
+                }
+            }
+        }
 
-                    // Output recent Tomcat logs for verification
+        stage('Tail Logs') {
+            steps {
+                script {
+                    // Display the last 50 lines of Tomcat logs
                     sh """
-                    echo "Last 50 lines of Tomcat logs:"
-                    tail -n 50 ${TOMCAT_LOG}
+                    echo "Displaying Tomcat logs..."
+                    sudo /usr/bin/tail -n 50 ${LOG_PATH}
                     """
                 }
             }
