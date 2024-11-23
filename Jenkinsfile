@@ -32,6 +32,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
+                    // Wait for manual approval before deploying
+                    input message: 'Do you want to deploy the application?', ok: 'Deploy'
+
                     // Copy the WAR file to Tomcat's webapps directory and restart Tomcat
                     sh """
                     echo "Deploying to local Tomcat server..."
