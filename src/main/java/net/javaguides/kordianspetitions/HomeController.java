@@ -19,7 +19,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String redirectToCreate() {
-        return "redirect:/create";
+        return "index";
     }
 
     @GetMapping("/create")
